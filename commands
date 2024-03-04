@@ -1,9 +1,0 @@
-mkdir pytest_demo
-cd pytest_demo
-python3 -m venv pytest-env
-source pytest-env/bin/activate
-pip3 install pytest
-pytest -v
-
-test file name should be: '*_test.py' or 'test_*.py
-

@@ -1,4 +1,5 @@
-import calculator
+# from calculator.src import calculator
+from src import calculator
 
 
 def test_calc_addition():
