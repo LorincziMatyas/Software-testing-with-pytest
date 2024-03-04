@@ -1,1 +1,1 @@
-# py-tests
+# My py-tests for software testing subject
