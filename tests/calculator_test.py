@@ -1,5 +1,5 @@
 # from calculator.src import calculator
-from src import calculator
+from tests import calculator
 
 
 def test_calc_addition():

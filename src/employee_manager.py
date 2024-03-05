@@ -1,6 +1,6 @@
 import datetime
-from employees.src.employee import Employee
-from relational_manager.src.relations_manager import RelationsManager
+from src.employee import Employee
+from src.relations_manager import RelationsManager
 
 
 class EmployeeManager:
@@ -26,16 +26,24 @@ class EmployeeManager:
     def calculate_salary_and_send_email(self, employee: Employee) -> None:
         salary = self.calculate_salary(employee)
 
-        print(f"{employee.first_name} {employee.last_name} your salary: {salary} has been transferred to you.")
+        print(
+            f"{employee.first_name} {employee.last_name} your salary: {salary} has been transferred to you."
+        )
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     rm = RelationsManager()
     print(f"All team members: {rm.get_all_employees()}")
 
-    e1 = Employee(id=1, first_name="John", last_name="Doe", base_salary=3000,
-                  birth_date=datetime.date(1970, 1, 31), hire_date=datetime.date(1990, 10, 1))
+    e1 = Employee(
+        id=1,
+        first_name="John",
+        last_name="Doe",
+        base_salary=3000,
+        birth_date=datetime.date(1970, 1, 31),
+        hire_date=datetime.date(1990, 10, 1),
+    )
     print(f"Team members for e1: {rm.get_team_members(e1)}")
 
     em = EmployeeManager(rm)

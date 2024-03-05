@@ -5,6 +5,7 @@
 import datetime
 from dataclasses import dataclass
 from typing import Optional
+from src.employee import Employee
 
 
 @dataclass
