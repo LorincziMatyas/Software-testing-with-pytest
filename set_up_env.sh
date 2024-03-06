@@ -18,8 +18,9 @@ python3 -m venv "${1}-env"
 # Activate the virtual environment
 source "${1}-env/bin/activate"
 
-# Install pytest
-pip3 install pytest
+# Install dependencies
+python3 -m pip install --upgrade pip
+pip3 install pytest sqlalchemy
 
 # Run pytest
 # pytest -v
