@@ -25,7 +25,7 @@ pip3 install pytest
 pytest -v
 
 # Deactivate the virtual environment
-deactivate
+# deactivate
 
 
 # test file name should be: '*_test.py' or 'test_*.py
