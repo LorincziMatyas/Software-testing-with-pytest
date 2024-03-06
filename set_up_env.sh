@@ -22,7 +22,7 @@ source "${1}-env/bin/activate"
 pip3 install pytest
 
 # Run pytest
-pytest -v
+# pytest -v
 
 # Deactivate the virtual environment
 # deactivate
