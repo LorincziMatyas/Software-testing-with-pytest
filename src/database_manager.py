@@ -5,7 +5,7 @@ import datetime
 
 
 class DatabaseManager:
-    def __init__(self, db_url="sqlite:///employees.db"):
+    def __init__(self, db_url="sqlite:///database/employees.db"):
         self.engine = create_engine(db_url, echo=True)
         Base.metadata.create_all(self.engine)
         self.Session = sessionmaker(bind=self.engine)

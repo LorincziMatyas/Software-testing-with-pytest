@@ -1,5 +1,4 @@
 import datetime
-from src.models import Employees, Teams
 from src.database_manager import DatabaseManager
 
 # Initialize the database manager
