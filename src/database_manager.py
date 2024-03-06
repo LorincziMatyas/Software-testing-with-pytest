@@ -5,7 +5,7 @@ import datetime
 
 
 class DatabaseManager:
-    def __init__(self, db_url="sqlite:///database/employees.db"):
+    def __init__(self, db_url="sqlite:///database//employees.db"):
         self.engine = create_engine(db_url, echo=True)
         Base.metadata.create_all(self.engine)
         self.Session = sessionmaker(bind=self.engine)
@@ -178,12 +178,27 @@ class DatabaseManager:
             session.commit()
         session.close()
 
+    def clear_database(self) -> None:
+        session = self.Session()
+        session.query(Employees).delete()
+        session.query(Teams).delete()
+        session.query(Bonuses).delete()
+        session.commit()
+        session.close()
+
     def topup_database(self) -> None:
         session = self.Session()
 
+        if (
+            session.query(Employees).count() > 0
+            and session.query(Teams).count() > 0
+            and session.query(Bonuses).count() > 0
+        ):
+            session.close()
+            return
+
         employees = [
             Employees(
-                id=1,
                 first_name="John",
                 last_name="Doe",
                 base_salary=3000,
@@ -191,7 +206,6 @@ class DatabaseManager:
                 hire_date=datetime.date(1990, 10, 1),
             ),
             Employees(
-                id=2,
                 first_name="Myrta",
                 last_name="Torkelson",
                 base_salary=1000,
@@ -199,7 +213,6 @@ class DatabaseManager:
                 hire_date=datetime.date(2000, 1, 1),
             ),
             Employees(
-                id=3,
                 first_name="Jettie",
                 last_name="Lynch",
                 base_salary=1500,
@@ -207,7 +220,6 @@ class DatabaseManager:
                 hire_date=datetime.date(2015, 1, 1),
             ),
             Employees(
-                id=4,
                 first_name="Gretchen",
                 last_name="Watford",
                 base_salary=4000,
@@ -215,7 +227,6 @@ class DatabaseManager:
                 hire_date=datetime.date(1990, 1, 1),
             ),
             Employees(
-                id=5,
                 first_name="Tomas",
                 last_name="Andre",
                 base_salary=1600,
@@ -223,7 +234,6 @@ class DatabaseManager:
                 hire_date=datetime.date(2015, 1, 1),
             ),
             Employees(
-                id=6,
                 first_name="Scotty",
                 last_name="Bomba",
                 base_salary=1300,
@@ -233,15 +243,15 @@ class DatabaseManager:
         ]
 
         teams = [
-            Teams(id=1, leader_id=1, employee_id=2),
-            Teams(id=2, leader_id=1, employee_id=3),
-            Teams(id=3, leader_id=4, employee_id=5),
-            Teams(id=4, leader_id=4, employee_id=6),
+            Teams(leader_id=1, employee_id=2),
+            Teams(leader_id=1, employee_id=3),
+            Teams(leader_id=4, employee_id=5),
+            Teams(leader_id=4, employee_id=6),
         ]
 
         bonuses = [
-            Bonuses(id=1, type="yearly_bonus", value=100),
-            Bonuses(id=2, type="leader_bonus_per_member", value=200),
+            Bonuses(type="yearly_bonus", value=100),
+            Bonuses(type="leader_bonus_per_member", value=200),
         ]
 
         for employee in employees:
