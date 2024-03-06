@@ -34,10 +34,10 @@ You can set up the virtual environment on a Linux distribution either automatica
     source venv_name/bin/activate
     ```
 
-5. Install pytest in the virtual environment:
+5. Install pytest, sqlalchemy in the virtual environment:
 
     ```bash
-    pip3 install pytest
+    pip3 install pytest sqlalchemy
     ```
 
 6. Run your tests with pytest. Replace test_file_name.py with the name of your actual test file:
