@@ -181,11 +181,6 @@ class DatabaseManager:
     def topup_database(self) -> None:
         session = self.Session()
 
-        # Clear the tables
-        # session.query(Employees).delete()
-        # session.query(Teams).delete()
-        # session.query(Bonuses).delete()
-
         employees = [
             Employees(
                 id=1,
