@@ -1,9 +1,6 @@
 import datetime
 from src.database_manager import DatabaseManager
-
-# Initialize the database manager
-db_manager = DatabaseManager()
-db_manager.topup_database()
+from tests import db_manager
 
 
 # Check if there is a team leader called John Doe whose birthdate is 31.01.1970.

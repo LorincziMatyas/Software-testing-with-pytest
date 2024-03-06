@@ -1,13 +1,7 @@
-import datetime
-from src.models import Employees, Teams
-from src.database_manager import DatabaseManager
+from tests import db_manager
 
-# This is the modified test file which means that uses other methods that were created by me in the database_manager.py
-
-# Initialize the database manager
-db_manager = DatabaseManager()
-if db_manager.get_all_employees() is None:
-    db_manager.topup_database()
+# This is the modified test file which means that uses other methods
+# that were created by me in the database_manager.py
 
 
 # Check if there is a team leader called John Doe whose birthdate is 31.01.1970.
