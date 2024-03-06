@@ -11,6 +11,7 @@ class DatabaseManager:
         self.Session = sessionmaker(bind=self.engine)
         self.session = self.Session()
 
+    # Add methods
     def add_employee(self, employee: Employees):
         session = self.Session()
         session.add(employee)
@@ -29,6 +30,7 @@ class DatabaseManager:
         session.commit()
         session.close()
 
+    # Get methods
     def get_bonuses(self) -> list:
         session = self.Session()
         bonuses = session.query(Bonuses).all()
@@ -77,60 +79,29 @@ class DatabaseManager:
         session.close()
         return employee
 
-    def calculate_salary(self, employee_id: int) -> int:
-        employee = self.get_employee(employee_id)
-        if not employee:
-            return 0
-
-        salary = employee.base_salary
-        years_at_company = datetime.date.today().year - employee.hire_date.year
-        yearly_bonus = self.get_yearly_bonus()
-        salary += years_at_company * yearly_bonus
-
-        if self.is_leader(employee):
-            leader_bonus_per_member = self.get_leader_bonus_per_member()
-            team_members_count = len(self.get_team_members(employee))
-            salary += team_members_count * leader_bonus_per_member
-
-        return salary
-
-    def calculate_salary_and_send_email(self, employee_id: int) -> None:
-        employee = self.get_employee(employee_id)
-        if not employee:
-            return
-
-        salary = self.calculate_salary(employee_id)
-
-        print(
-            f"{employee.first_name} {employee.last_name}, your salary: {salary} has been transferred to you."
-        )
-
-    def remove_employee(self, employee_id: int):
-        session = self.Session()
-        employee = session.query(Employees).filter_by(id=employee_id).first()
-        if employee:
-            session.delete(employee)
-            session.commit()
-        session.close()
-
-    def update_employee(self, employee: Employees):
-        session = self.Session()
-        existing_employee = session.query(Employees).filter_by(id=employee.id).first()
-        if existing_employee:
-            existing_employee.first_name = employee.first_name
-            existing_employee.last_name = employee.last_name
-            existing_employee.base_salary = employee.base_salary
-            existing_employee.birth_date = employee.birth_date
-            existing_employee.hire_date = employee.hire_date
-            session.commit()
-        session.close()
-
     def get_employee(self, employee_id: int) -> Employees:
         session = self.Session()
         employee = session.query(Employees).filter_by(id=employee_id).first()
         session.close()
         return employee
 
+    def get_employee_by_name(self, first_name: str, last_name: str) -> Employees:
+        session = self.Session()
+        employee = (
+            session.query(Employees)
+            .filter_by(first_name=first_name, last_name=last_name)
+            .first()
+        )
+        session.close()
+        return employee
+
+    def get_team_size(self, leader_id: int) -> int:
+        session = self.Session()
+        team_size = session.query(Teams).filter(Teams.leader_id == leader_id).count()
+        session.close()
+        return team_size
+
+    # Original methods
     def is_leader(self, employee: Employees) -> bool:
         session = self.Session()
         team = session.query(Teams).filter(Teams.leader_id == employee.id).first()
@@ -152,6 +123,60 @@ class DatabaseManager:
         )
         session.close()
         return members
+
+    def calculate_salary(self, employee: Employees) -> int:
+        salary = employee.base_salary
+        years_at_company = datetime.date.today().year - employee.hire_date.year
+        yearly_bonus = self.get_yearly_bonus()
+        salary += years_at_company * yearly_bonus
+
+        if self.is_leader(employee):
+            leader_bonus_per_member = self.get_leader_bonus_per_member()
+            team_members_count = len(self.get_team_members(employee))
+            salary += team_members_count * leader_bonus_per_member
+
+        return salary
+
+    def calculate_salary_and_send_email(self, employee: Employees) -> None:
+        salary = self.calculate_salary(employee)
+
+        print(
+            f"{employee.first_name} {employee.last_name}, your salary: {salary} has been transferred to you."
+        )
+
+    def calculate_salary_and_send_email_modified(self, employee: Employees) -> tuple:
+        salary = self.calculate_salary(employee)
+
+        print(
+            f"{employee.first_name} {employee.last_name}, your salary: {salary} has been transferred to you."
+        )
+
+        return (
+            salary,
+            f"{employee.first_name} {employee.last_name}",
+            f"{employee.first_name} {employee.last_name}, your salary: {salary} has been transferred to you.",
+        )
+
+    # Other methods
+    def remove_employee(self, employee_id: int):
+        session = self.Session()
+        employee = session.query(Employees).filter_by(id=employee_id).first()
+        if employee:
+            session.delete(employee)
+            session.commit()
+        session.close()
+
+    def update_employee(self, employee: Employees):
+        session = self.Session()
+        existing_employee = session.query(Employees).filter_by(id=employee.id).first()
+        if existing_employee:
+            existing_employee.first_name = employee.first_name
+            existing_employee.last_name = employee.last_name
+            existing_employee.base_salary = employee.base_salary
+            existing_employee.birth_date = employee.birth_date
+            existing_employee.hire_date = employee.hire_date
+            session.commit()
+        session.close()
 
     def topup_database(self) -> None:
         session = self.Session()
