@@ -4,7 +4,8 @@ from src.database_manager import DatabaseManager
 
 # Initialize the database manager
 db_manager = DatabaseManager()
-db_manager.topup_database()
+if db_manager.get_all_employees() is None:
+    db_manager.topup_database()
 
 
 # Check if there is a team leader called John Doe whose birthdate is 31.01.1970.

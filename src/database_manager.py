@@ -182,9 +182,9 @@ class DatabaseManager:
         session = self.Session()
 
         # Clear the tables
-        session.query(Employees).delete()
-        session.query(Teams).delete()
-        session.query(Bonuses).delete()
+        # session.query(Employees).delete()
+        # session.query(Teams).delete()
+        # session.query(Bonuses).delete()
 
         employees = [
             Employees(

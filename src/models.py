@@ -1,8 +1,9 @@
+import sqlalchemy
 from sqlalchemy import Column, Integer, String, Date, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 
 # Create a SQLAlchemy base
-Base = declarative_base()
+Base = sqlalchemy.orm.declarative_base()
 
 
 class Employees(Base):
