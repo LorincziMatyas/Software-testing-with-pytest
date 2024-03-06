@@ -12,39 +12,39 @@ You can set up the virtual environment on a Linux distribution either automatica
 
 1. Create a new directory for your project. Replace `folder_name` with the name you want for your directory:
 
-```bash
-mkdir folder_name
-```
+    ```bash
+    mkdir folder_name
+    ```
 
 2. Navigate into the directory:
 
-```bash
-cd folder_name
-```
+    ```bash
+    cd folder_name
+    ```
 
 3. Create the virtual environment. Replace venv_name with the name you want for your virtual environment:
 
-```bash
-python3 -m venv venv_name
-```
+    ```bash
+    python3 -m venv venv_name
+    ```
 
 4. Activate the virtual environment. Replace venv_name with the name you of your virtual environment:
 
-```bash
-source venv_name/bin/activate
-```
+    ```bash
+    source venv_name/bin/activate
+    ```
 
 5. Install pytest in the virtual environment:
 
-```bash
-pip3 install pytest
-```
+    ```bash
+    pip3 install pytest
+    ```
 
 6. Run your tests with pytest. Replace test_file_name.py with the name of your actual test file:
 
-```bash
-pytest test_file_name.py
-```
+    ```bash
+    pytest test_file_name.py
+    ```
 
 ## Project Structure
 
