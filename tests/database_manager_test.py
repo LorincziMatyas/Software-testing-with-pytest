@@ -9,7 +9,7 @@ if db_manager.get_all_employees() is None:
 
 
 # Check if there is a team leader called John Doe whose birthdate is 31.01.1970.
-def test_leader():
+def test_john_doe_is_team_leader():
     employees = db_manager.get_all_employees()
     assert employees is not None
     john = [e for e in employees if e.first_name == "John" and e.last_name == "Doe"]
@@ -20,7 +20,7 @@ def test_leader():
 
 
 # Check if John Doe’s team members are Myrta Torkelson and Jettie Lynch.
-def test_team_members():
+def test_john_doe_team_members():
     employees = db_manager.get_all_employees()
     assert employees is not None
     john = [e for e in employees if e.first_name == "John" and e.last_name == "Doe"]
@@ -34,7 +34,7 @@ def test_team_members():
 
 
 # Make sure that Tomas Andre is not John Doe’s team member.
-def test_not_team_member():
+def test_tomas_andre_not_in_john_doe_team():
     employees = db_manager.get_all_employees()
     assert employees is not None
     john = [e for e in employees if e.first_name == "John" and e.last_name == "Doe"]
@@ -46,7 +46,7 @@ def test_not_team_member():
 
 
 # Check if Gretchen Walford’s base salary equals 4000$.
-def test_base_salary():
+def test_gretchen_watford_base_salary():
     employees = db_manager.get_all_employees()
     assert employees is not None
     gretchen = [
@@ -58,7 +58,7 @@ def test_base_salary():
 
 
 # Make sure Tomas Andre is not a team leader. Check what happens if you try to retrieve his team members.
-def test_not_leader():
+def test_tomas_andre_not_team_leader():
     employees = db_manager.get_all_employees()
     assert employees is not None
     tomas = [e for e in employees if e.first_name == "Tomas" and e.last_name == "Andre"]
@@ -68,7 +68,7 @@ def test_not_leader():
 
 
 # Make sure that Jude Overcash is not stored in the database.
-def test_not_in_database():
+def test_jude_overcash_not_in_database():
     employees = db_manager.get_all_employees()
     assert employees is not None
     jude = [
@@ -79,7 +79,7 @@ def test_not_in_database():
 
 # Check an employee’s salary who is not a team leader whose hire date is 10.10.1998
 # and his base salary is 1000$. Make sure the returned value is 3000$ (1000$ + 20 X 100$).
-def test_check_employee_salary():  # should fail because of the wrong date
+def test_employee_salary_without_leadership_bonus():  # should fail because of the wrong date
     employees = db_manager.get_all_employees()
     assert employees is not None
     not_leaders = [
@@ -99,7 +99,7 @@ def test_check_employee_salary():  # should fail because of the wrong date
 # Check an employee’s salary who is a team leader and his team consists of 3 members.
 # She was hired on 10.10.2008 and has a base salary of 2000$.
 # Validate if the returned value is 3600$ (2000$ + 10 X 100$ + 3 X 200$).
-def test_check_leader_salary():  # should fail because of the wrong date
+def test_leader_salary_with_team_bonus():  # should fail because of the wrong date
     employees = db_manager.get_all_employees()
     assert employees is not None
     leaders = [
