@@ -3,8 +3,9 @@ from src.database_manager import DatabaseManager
 from tests import db_manager
 
 
-# Check if there is a team leader called John Doe whose birthdate is 31.01.1970.
+
 def test_john_doe_is_team_leader():
+    ''' Check if there is a team leader called John Doe whose birthdate is 31.01.1970.'''    
     employees = db_manager.get_all_employees()
     assert employees is not None
     john = [e for e in employees if e.first_name == "John" and e.last_name == "Doe"]
@@ -14,8 +15,9 @@ def test_john_doe_is_team_leader():
     assert db_manager.is_leader(john)
 
 
-# Check if John Doe’s team members are Myrta Torkelson and Jettie Lynch.
+
 def test_john_doe_team_members():
+    '''Check if John Doe’s team members are Myrta Torkelson and Jettie Lynch.''' 
     employees = db_manager.get_all_employees()
     assert employees is not None
     john = [e for e in employees if e.first_name == "John" and e.last_name == "Doe"]
